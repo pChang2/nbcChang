@@ -1,0 +1,90 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+int totalArray(int arr[], int size) {
+	int total = 0;
+	for (int i = 0; i < size; i++) {
+		total = total + arr[i];
+	}
+	return total;
+}
+
+float avgArray(int arr[], int size) {
+	float avg = (float)totalArray(arr, size) / size;
+	return avg;
+}
+
+int sortArray(int arr[], int size, int base) {
+	// 가장 큰 수  선언
+	int max_num = arr[0];
+	// 바꿀자리 수를 기억할 변수 및 인덱스 선언
+	int mem_num = 0;
+	int mem_index = 0;
+	// 수 찾을 횟수 제한 두기위한 변수 선언
+	int sub_size = size - 1;
+
+	if (base == 1) {
+		// 가장 큰 수부터 큰 인덱스 순으로 정렬
+		for (int a = size - 1; a >= 0; a--) {
+			// 가장 큰 수 인덱스 찾기
+			for (int b = 0; b <= sub_size; b++) {
+				if (max_num < arr[b]) {
+					max_num = arr[b];
+					mem_index = b;
+				}
+			}
+			mem_num = arr[a];
+			arr[a] = max_num;
+			arr[mem_index] = mem_num;
+			sub_size--;
+			max_num = 0;
+		}
+	} else if (base == 2) {
+		// 가장 큰 수부터 작은 인덱스 순으로 정렬
+		for (int a = 0; a <= size - 1; a++) {
+			// 가장 큰 수 인덱스 찾기
+			for (int b = 0; sub_size - b >= a; b++) {
+				if (max_num < arr[sub_size - b]) {
+					max_num = arr[sub_size - b];
+					mem_index = sub_size - b;
+				}
+			}
+			mem_num = arr[a];
+			arr[a] = max_num;
+			arr[mem_index] = mem_num;
+			max_num = 0;
+		}
+	} else {
+		cout << "1과 2중 입력해주십시오.";
+	}
+	return 0;
+}
+
+int main() {
+
+	// 5의 크기를 가진 정수 배열 선언
+	int num[5];
+
+	// 정수 5개 입력 받기
+	cout << "정수 5개를 입력해주세요. :";
+	cin >> num[0] >> num[1] >> num[2] >> num[3] >> num[4];
+
+	// 입력받은 값 합 출력
+	cout << "입력받은 값 총 합 = " << totalArray(num, 5) << endl;
+
+	// 입력받은 값 평균 출력
+	cout << "입력받은 값 평균 = " << avgArray(num, 5) << endl;
+
+	// 정렬 방식을 정해줄 변수 선언
+	int base;
+	cout << "정렬 방식을 선택해주세요.( 1 = 오름차순, 2 = 내림차순 ) : ";
+	cin >> base;
+
+	// 배열 정렬
+	sortArray(num, 5, base);
+	// 정렬한 배열 출력
+	cout << num[0] << " " << num[1] << " " << num[2] << " " << num[3] << " " << num[4];
+
+	return 0;
+}
