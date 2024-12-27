@@ -1,0 +1,73 @@
+#include <iostream>
+#include <algorithm> //max 함수 사용
+#include <string>
+using namespace std;
+
+class Animal {
+public:
+	virtual void makesound() = 0;
+};
+
+class Dog : public Animal {
+public:
+	void makesound() {
+		cout << "Dog : Woof! Woof!" << endl;
+	}
+};
+
+class Cat : public Animal {
+public:
+	void makesound() {
+		cout << "Cat : Meow! Meow!" << endl;
+	}
+};
+
+class Cow : public Animal {
+public:
+	void makesound() {
+		cout << "Cow : Eummeo! Eummeo!" << endl;
+	}
+};
+
+int main() {
+	Animal* AnimalArray[3];
+	Dog dog1;	
+	Cat cat1;
+	Cow cow1;
+
+	int Num;
+
+	cout << "확인할 울음소리를 선택하시오. (1번 개 / 2번 고양이 / 3번 소 / 0번 종료) :";
+	cin >> Num;
+
+	AnimalArray[0] = &dog1;
+	AnimalArray[1] = &cat1;
+	AnimalArray[2] = &cow1;
+
+	while (Num > 0){
+		if (Num == 1) {
+			AnimalArray[Num-1]->makesound();
+			cout << "확인할 울음소리를 선택하시오. (1번 개 / 2번 고양이 / 3번 소 / 0번 종료) :";
+			cin >> Num;
+		}
+		else if (Num == 2) {
+			AnimalArray[Num - 1]->makesound();
+			cout << "확인할 울음소리를 선택하시오. (1번 개 / 2번 고양이 / 3번 소 / 0번 종료) :";
+			cin >> Num;
+		}
+		else if (Num == 3) {
+			AnimalArray[Num - 1]->makesound();
+			cout << "확인할 울음소리를 선택하시오. (1번 개 / 2번 고양이 / 3번 소 / 0번 종료) :";
+			cin >> Num;
+		}
+		else {
+			cout << "잘못된 값이 입력되었습니다.\n";
+			cout << "확인할 울음소리를 선택하시오. (1번 개 / 2번 고양이 / 3번 소 / 0번 종료) :";
+			cin >> Num;
+		}
+
+	}
+
+	cout << "종료되었습니다.";
+	return 0;
+}
