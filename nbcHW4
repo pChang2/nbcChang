@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <vector>
+class Book
+{
+public:
+    Book(const std::string& title, const std::string& author)
+        : m_title(title)
+        , m_author(author)
+    {
+    }
+    ~Book()
+    {
+    }
+    const std::string& GetTitle() const { return m_title; }
+    const std::string& GetAuthor() { return m_author; }
+private:
+    std::string m_title;
+    std::string m_author;
+};
+
+class BookManager
+{
+public:
+    void addBook(const std::string& title, const std::string& author);
+    void displayAllBooks();
+    void searchByTitle(const std::string& title);
+    void searchByAuthor(const std::string& author);
+private:
+    std::vector<Book> library;
+};
+
+void BookManager::addBook(const std::string& title, const std::string& author)
+{
+    Book tempBook(title, author);
+    library.push_back(tempBook);
+}
+void BookManager::displayAllBooks()
+{
+    // 벡터의 순회
+    int count = library.size();
+    for (int i = 0; i < count; ++i)
+        std::cout << '[' << library[i].GetAuthor() << ']' << library[i].GetTitle() << std::endl;
+}
+void BookManager::searchByTitle(const std::string& title)
+{
+    bool find = false;
+    int count = library.size();
+    for (int i = 0; i < count; ++i)
+    {
+        if (library[i].GetTitle() == title)
+        {
+            std::cout << "[검색 성공] " << '[' << library[i].GetAuthor() << ']' << library[i].GetTitle() << std::endl;
+            find = true;
+        }
+    }
+    if (find == false)
+        std::cout << "[검색 실패]" << std::endl;
+}
+void BookManager::searchByAuthor(const std::string& author)
+{
+    bool find = false;
+    int count = library.size();
+    for (int i = 0; i < count; ++i)
+    {
+        if (library[i].GetAuthor() == author)
+        {
+            std::cout << "[검색 성공] " << '[' << library[i].GetAuthor() << ']' << library[i].GetTitle() << std::endl;
+            find = true;
+        }
+    }
+    if (find == false)
+        std::cout << "[검색 실패]" << std::endl;
+}
+int main(void)
+{
+    BookManager bm;
+    while (true)
+    {
+        std::cout << "0: 책 추가\n1: 책 조회\n2. 제목으로 검색\n3. 저자명으로 검색\n" << std::endl;
+        int option;
+        std::cin >> option;
+        std::cin.ignore();
+        switch (option)
+        {
+        case 0:
+        {
+            std::string 제목;
+            std::string 저자;
+            std::cout << "제목: ";
+            std::getline(std::cin, 제목);
+            std::cout << "저자명: ";
+            std::getline(std::cin, 저자);
+            bm.addBook(제목, 저자);
+        }
+        break;
+        case 1:
+            bm.displayAllBooks();
+            break;
+        case 2:
+        {
+            std::string 제목;
+            std::cout << "제목: ";
+            std::getline(std::cin, 제목);
+            bm.searchByTitle(제목);
+        }
+        break;
+        case 3:
+        {
+            std::string 저자;
+            std::cout << "저자명: ";
+            std::getline(std::cin, 저자);
+            bm.searchByAuthor(저자);
+        }
+        break;
+        default:
+            break;
+        }
+    }
+    return 0;
+}
