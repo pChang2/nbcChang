@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+
+template <typename T>
+class SimpleVector
+{
+private:
+	T* arr;
+	int size;
+	int capacity;
+public:
+	//생성자
+	SimpleVector()
+	{
+		int arr[10];
+	}
+	//숫자 하나 받는 생성자
+	SimpleVector(int cap) : capacity(cap), size(0)
+	{
+		arr = new T[capacity];
+	}
+	//소멸자
+	~SimpleVector()
+	{
+		delete[] arr;
+	}
+	void push(T value)
+	{
+		if (size < capacity)
+		{
+			arr[size] = value;
+			size++;
+		}
+	}
+	// 맨 뒤 원소 삭제
+	void pop()
+	{
+		if (size > 0)
+		{
+			size--;
+		}
+	}
+	int size()
+	{
+		return size;
+	}
+	int capacity()
+	{
+		return capacity;
+	}
+
+};
